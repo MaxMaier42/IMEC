@@ -11,7 +11,7 @@ theory appraisal.
 \section{Construct Explanary Network}{
 
 \emph{intializeNetwork} constructs an initial empty explanatoy network
-\emph{Explain} and \emph{Contradict} specify explanatory relations
+\emph{Explain} and \emph{Contradict} specify explanatory relations.
 }
 
 \section{Calculate IMEC}{

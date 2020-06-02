@@ -25,7 +25,7 @@ computeIMEC(
 \item{theory2}{vector of propositions in theory2.}
 
 \item{analytic}{whether the result should be calculated analytically or (for large networks) estimated using
-Metropolis-Hastings alrogithm enhanced with Coupling from the past (Murray, 2007).}
+Metropolis-Hastings algorithm enhanced with Coupling from the past (Murray, 2007).}
 }
 \value{
 returns an IMEC object which contains the explanatory coherence of the propositions, the explanatory relations,
@@ -40,14 +40,8 @@ Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
 Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 evidence <- c(rep(1,8))
-explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 ## oxygen and phlogiston
 explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #oygen explanations
 explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 explanations <- Explain(c("OH1", "OH3"), "E3", explanations)

@@ -13,26 +13,23 @@ Contradict(Explanation, Explanandum, matrix, weight = 4)
 
 \item{matrix}{Matrix of Explanatory relations that is modified}
 
-\item{weight}{Strength of connection (i.e., stength of contradiction)
+\item{weight}{Strength of connection (i.e., strength of contradiction)
 
 #'@return returns the explantory matrix with the edge weights modified according
-to the specified contradiction
-
-#'@examples
+to the specified contradiction}
+}
+\description{
+Sets a contradictory relation between a set of propositions and a phenomenon.
+If more than one proposition is used the edge weight will be reduced accordingly.
+}
+\examples{
 #Comparison of Oxygen and Phlogiston Theory of Combustion
 Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
 Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 evidence <- c(rep(1,8))
-explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
-\subsection{oxygen and phlogiston}{
-
+## oxygen and phlogiston
 explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #oygen explanations
 explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -51,12 +48,5 @@ explanations <- Contradict("PH6", "OH5", explanations)
 IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
 plot(IMEC)
 summary(IMEC)
-}}
-}
-\description{
-Sets an contradictory relation between a set of propositions and a phenomenon.
-If more than one proposition is used the edge weight will be reduced accordingly.
-}
-\details{
-Sets an contradictory relation between a set of propositions and a phenomenon
+
 }

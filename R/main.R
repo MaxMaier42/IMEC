@@ -23,14 +23,8 @@ setconnection <- function(m, x1, x2, weight)
 #'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 #'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'## oxygen and phlogiston
 #'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'#oygen explanations
 #'explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -78,14 +72,8 @@ return(edgematrix)
 #'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 #'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'## oxygen and phlogiston
 #'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'#oygen explanations
 #'explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -98,7 +86,7 @@ return(edgematrix)
 #'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
 #'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
 #'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
-#Contradictions
+#'#Contradictions
 #'explanations <- Contradict("PH3", "OH3", explanations)
 #'explanations <- Contradict("PH6", "OH5", explanations)
 #'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
@@ -135,20 +123,14 @@ Explain <- function(Explanation, Explanandum, matrix, weight = 1){
 #'#'@return returns the explantory matrix with the edge weights modified according
 #'to the specified contradiction
 #'
-#'#'@examples
+#'@examples
 #'#Comparison of Oxygen and Phlogiston Theory of Combustion
 #'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
 #'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 #'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'## oxygen and phlogiston
 #'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'#oygen explanations
 #'explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -204,14 +186,8 @@ Contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 #'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'## oxygen and phlogiston
 #'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'#oygen explanations
 #'explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -250,7 +226,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
                 coherenceT1 <- c(coherenceT1, cp)
           }
           if (length(theory2) < 1)   {
-          results <- list(cbind(theory1, coherenceT1), phenomena, evidence, matrix)
+          results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, evidence, matrix)
           names(results) <- c("ExplanatoryCoherenceT1", "Phenomena", "Evidence", "Explanations")
           } else {
           coherenceT2 <- numeric()
@@ -259,7 +235,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
             cp <-sum(cp$Probability)
             coherenceT2 <- c(coherenceT2, cp)
           }
-        results <- list(cbind(theory1, coherenceT1), cbind(theory2, coherenceT2), phenomena, evidence, matrix)
+        results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, evidence, matrix)
         names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena", "Evidence", "Explanations")
           }
         } else {
@@ -271,7 +247,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
             coherenceT1 <- c(coherenceT1, cp)
           }
           if (length(theory2) < 1)   {
-            results <- list(cbind(theory1, coherenceT1), phenomena, evidence, matrix)
+            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, evidence, matrix)
             names(results) <- c("ExplanatoryCoherenceT1", "Phenomena", "Evidence", "Explanations")
             } else {
             coherenceT2 <- numeric()
@@ -280,7 +256,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
               cp <- nrow(cp)/10000
               coherenceT2 <- c(coherenceT2, cp)
             }
-            results <- list(cbind(theory1, coherenceT1), cbind(theory2, coherenceT2), phenomena, evidence, matrix)
+            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, evidence, matrix)
             names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena", "Evidence", "Explanations")
           }
         }
@@ -301,14 +277,8 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
 #'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 #'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'## oxygen and phlogiston
 #'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'#oygen explanations
 #'explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -332,9 +302,9 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
 plot.IMEC <- function(IMEC, nodesize = 10) {
   matrix <- IMEC$Explanations
   phenomena <- IMEC$Phenomena
-  theory1 <- IMEC$ExplanatoryCoherenceT1[,1]
+  theory1 <- IMEC$ExplanatoryCoherenceT1[[1]]
   if (length(IMEC) > 4) {
-    theory2 <- IMEC$ExplanatoryCoherenceT2[,1]
+    theory2 <- IMEC$ExplanatoryCoherenceT2[[1]]
   } else {
     theory2 <- character()
     }
@@ -365,14 +335,8 @@ plot.IMEC <- function(IMEC, nodesize = 10) {
 #'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
 #'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'## oxygen and phlogiston
 #'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
 #'#oygen explanations
 #'explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
@@ -395,8 +359,12 @@ plot.IMEC <- function(IMEC, nodesize = 10) {
 #'@export
 summary.IMEC <- function(IMEC) {
   if (length(IMEC) > 4) {
-    return(list(IMEC$ExplanatoryCoherenceT1, IMEC$ExplanatoryCoherenceT2))
+    ret <- data.frame(IMEC$ExplanatoryCoherenceT1[[1]], IMEC$ExplanatoryCoherenceT1[[2]], IMEC$ExplanatoryCoherenceT2[[1]], IMEC$ExplanatoryCoherenceT2[[2]])
+    names(ret) <- c("T1", "EC_T1", "T2", "EC_T2")
+    return(ret)
   } else {
-    theory2 <- return(IMEC$ExplanatoryCoherenceT1)
+    ret <- data.frame(IMEC$ExplanatoryCoherenceT1[[1]], IMEC$ExplanatoryCoherenceT1[[2]])
+    names(ret) <- c("T1", "EC_T1")
+    return(ret)
   }
 }
