@@ -1,0 +1,18 @@
+Package: IMEC
+Title: Ising Model of Explanatory Coherence
+Version: 0.1
+Authors@R: 
+    person(given = "Maximilian",
+           family = "Maier",
+           role = c("aut", "cre"),
+           email = "maximilianmaier0401@gmail.com")
+Description: Compute and plot the Ising Model of Explanatory Coherence.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports:
+    IsingSampler,
+    igraph,
+    qgraph
