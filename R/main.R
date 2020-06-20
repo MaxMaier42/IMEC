@@ -225,9 +225,16 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
                 cp <-sum(cp$Probability)
                 coherenceT1 <- c(coherenceT1, cp)
           }
+          startP <- length(propositions)+2
+          coherencePhenomena <- numeric()
+          for (i in startP:ncol(res)) {
+              cp <- subset(res, res[i] == 1)
+              cp <-sum(cp$Probability)
+              coherencePhenomena <- c(coherencePhenomena, cp)
+          }
           if (length(theory2) < 1)   {
-          results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, evidence, matrix)
-          names(results) <- c("ExplanatoryCoherenceT1", "Phenomena", "Evidence", "Explanations")
+          results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, coherencePhenomena,evidence, matrix)
+          names(results) <- c("ExplanatoryCoherenceT1", "Phenomena", "CredibilityOfPhenomena", "Evidence",  "Explanations")
           } else {
           coherenceT2 <- numeric()
             for (i in (length(theory1)+1):length(propositions)){
@@ -235,8 +242,8 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
             cp <-sum(cp$Probability)
             coherenceT2 <- c(coherenceT2, cp)
           }
-        results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, evidence, matrix)
-        names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena", "Evidence", "Explanations")
+        results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, coherencePhenomena, evidence, matrix)
+        names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena","CredibilityOfPhenomena", "Evidence", "Explanations")
           }
         } else {
           res <- IsingSampler::IsingSampler(10000, matrix, thresholds, beta = 1, response = c(-1,1), method ="CFTP")
@@ -246,9 +253,17 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
             cp <- nrow(cp)/10000
             coherenceT1 <- c(coherenceT1, cp)
           }
+          startP <- length(propositions)+1
+          coherencePhenomena  <- numeric()
+          for (i in startP:ncol(res)) {
+              cp <- subset(res, res[,i] == 1)
+              cp <- nrow(cp)/10000
+              coherencePhenomena <- c(coherencePhenomena, cp)
+          }
+
           if (length(theory2) < 1)   {
-            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, evidence, matrix)
-            names(results) <- c("ExplanatoryCoherenceT1", "Phenomena", "Evidence", "Explanations")
+            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, coherencePhenomena, evidence, matrix)
+            names(results) <- c("ExplanatoryCoherenceT1", "Phenomena","CredibilityOfPhenomena", "Evidence", "Explanations")
             } else {
             coherenceT2 <- numeric()
             for (i in (length(theory1)+1):length(propositions)){
@@ -256,10 +271,11 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
               cp <- nrow(cp)/10000
               coherenceT2 <- c(coherenceT2, cp)
             }
-            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, evidence, matrix)
-            names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena", "Evidence", "Explanations")
-          }
+            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, coherencePhenomena, evidence, matrix)
+            names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena","CredibilityOfPhenomena", "Evidence", "Explanations")
+            }
         }
+
         class(results) <- "IMEC"
         return(results)
 }
