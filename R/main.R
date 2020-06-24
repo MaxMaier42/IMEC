@@ -334,7 +334,8 @@ plot.IMEC <- function(IMEC, nodesize = 10) {
     }
   propositions  <- c(theory1, theory2)
   g  <- igraph::graph_from_adjacency_matrix(matrix, mode = "undirected", weighted = TRUE)
-  colors <- c(rep("yellow", length(theory1)), rep("green", length(theory2)), rep("red", length(phenomena)))
+  colors <- c(rep("yellow", length(theory1)), rep("green", length(theory2)), rep("orangered", length(phenomena)))
+  shapes <- c(rep("circle", length(theory1)), rep("circle", length(theory2)), rep("square", length(phenomena)))
   yp <- c(rep(1, length(theory1)), rep(10, length(theory2)), rep(5, length(phenomena)))
   if (length(theory2) > 0) {
     xp <- c(1:length(theory1),1:length(theory2),1:length(phenomena))*20
@@ -348,7 +349,7 @@ plot.IMEC <- function(IMEC, nodesize = 10) {
   igraph::tk_fit(tk)
   readline(prompt="Press [enter] to continue")
   co <- igraph::tkplot.getcoords(tk)
-  qgraph::qgraph(matrix, layout = co, color = colors, vsize = nodesize, theme = "colorblind")
+  qgraph::qgraph(matrix, layout = co, color = colors, shape = shapes, vsize = nodesize, theme = "colorblind")
 }
 
 #'Summary of an IMEC object.
@@ -382,10 +383,12 @@ plot.IMEC <- function(IMEC, nodesize = 10) {
 #'
 #'@export
 summary.IMEC <- function(IMEC) {
-  if (length(IMEC) > 4) {
-    ret <- data.frame(IMEC$ExplanatoryCoherenceT1[[1]], IMEC$ExplanatoryCoherenceT1[[2]], IMEC$ExplanatoryCoherenceT2[[1]], IMEC$ExplanatoryCoherenceT2[[2]])
-    names(ret) <- c("T1", "EC_T1", "T2", "EC_T2")
-    return(ret)
+  if (length(IMEC$ExplanatoryCoherenceT2) > 0) {
+    ret1 <- data.frame(IMEC$ExplanatoryCoherenceT1[[1]], IMEC$ExplanatoryCoherenceT1[[2]])
+    names(ret1) <- c("T1", "EC_T1")
+    ret2 <- data.frame(IMEC$ExplanatoryCoherenceT2[[1]], IMEC$ExplanatoryCoherenceT2[[2]])
+    names(ret2) <- c("T2", "EC_T2")
+    return(list(ret1, ret2))
   } else {
     ret <- data.frame(IMEC$ExplanatoryCoherenceT1[[1]], IMEC$ExplanatoryCoherenceT1[[2]])
     names(ret) <- c("T1", "EC_T1")
