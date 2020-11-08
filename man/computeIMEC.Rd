@@ -10,7 +10,8 @@ computeIMEC(
   phenomena,
   theory1,
   theory2 = character(),
-  analytic = T
+  analytic = T,
+  analogy = numeric()
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ computeIMEC(
 
 \item{analytic}{whether the result should be calculated analytically or (for large networks) estimated using
 Metropolis-Hastings algorithm enhanced with Coupling from the past (Murray, 2007).}
+
+\item{analogy}{this argument is only for purposes of adding analogy in the future and should currently not be used.}
 }
 \value{
 returns an IMEC object which contains the explanatory coherence of the propositions, the explanatory relations,
@@ -43,20 +46,20 @@ evidence <- c(rep(1,8))
 ## oxygen and phlogiston
 explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
 #oygen explanations
-explanations <- Explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-explanations <- Explain(c("OH1", "OH3"), "E3", explanations)
-explanations <- Explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-explanations <- Explain(c("OH1", "OH5"), "E5", explanations)
-explanations <- Explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-explanations <- Explain(c("OH1", "OH5"), "E7", explanations)
-explanations <- Explain(c("OH1", "OH6"), "E8", explanations)
+explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
+explanations <- explain(c("OH1", "OH3"), "E3", explanations)
+explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
+explanations <- explain(c("OH1", "OH5"), "E5", explanations)
+explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
+explanations <- explain(c("OH1", "OH5"), "E7", explanations)
+explanations <- explain(c("OH1", "OH6"), "E8", explanations)
 #phlogiston explanations
-explanations <- Explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-explanations <- Explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-explanations <- Explain(c("PH5", "PH6"), "E5", explanations)
-#Contradictions
-explanations <- Contradict("PH3", "OH3", explanations)
-explanations <- Contradict("PH6", "OH5", explanations)
+explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
+explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
+explanations <- explain(c("PH5", "PH6"), "E5", explanations)
+#contradictions
+explanations <- contradict("PH3", "OH3", explanations)
+explanations <- contradict("PH6", "OH5", explanations)
 IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
 plot(IMEC)
 summary(IMEC)

@@ -2,7 +2,7 @@
 
 S3method(plot,IMEC)
 S3method(summary,IMEC)
-export(Contradict)
-export(Explain)
 export(computeIMEC)
+export(contradict)
+export(explain)
 export(initializeNetwork)

@@ -1,3 +1,5 @@
 ^IMEC\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^cran-comments\.md$
+^\.travis\.yml$
