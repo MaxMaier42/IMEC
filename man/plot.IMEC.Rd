@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{plot.IMEC}
 \alias{plot.IMEC}
-\title{Plots the Explanatory Relations}
+\title{Plots the explanatory relations}
 \usage{
 \method{plot}{IMEC}(x, nodesize = 10, ...)
 }
@@ -18,13 +18,13 @@ Plot the explanatory relations between data and phenomena. A window will open wh
 can drag the nodes in the intended position. Then press enter to plot the network.
 }
 \examples{
-#Comparison of Oxygen and Phlogiston Theory of Combustion
-Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#Comparison of oxygen and phlogiston theory of combustion
+phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 evidence <- c(rep(1,8))
 ## oxygen and phlogiston
-explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
+explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
 #oygen explanations
 explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 explanations <- explain(c("OH1", "OH3"), "E3", explanations)
@@ -40,7 +40,7 @@ explanations <- explain(c("PH5", "PH6"), "E5", explanations)
 #contradictions
 explanations <- contradict("PH3", "OH3", explanations)
 explanations <- contradict("PH6", "OH5", explanations)
-IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 plot(IMEC)
 summary(IMEC)
 

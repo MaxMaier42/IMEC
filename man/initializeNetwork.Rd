@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{initializeNetwork}
 \alias{initializeNetwork}
-\title{Initialize the Explanatory Network}
+\title{Initialize the explanatory network}
 \usage{
 initializeNetwork(phenomena, theory1, theory2 = character())
 }
@@ -14,20 +14,20 @@ initializeNetwork(phenomena, theory1, theory2 = character())
 \item{theory2}{Vector of propositions included in theory 2 (only set manually if theory comparison is intended)}
 }
 \value{
-An empty edge matrix (all edges 0).
+An empty edge matrix (all edges 0)
 }
 \description{
 This function initializes the network in which explanatory relations can be stored later.
 }
 \examples{
-#Comparison of Oxygen and Phlogiston Theory of Combustion
-Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#Comparison of oxygen and phlogiston theory of combustion
+phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 evidence <- c(rep(1,8))
 ## oxygen and phlogiston
-explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#oygen explanations
+explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
+#oyxgen explanations
 explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 explanations <- explain(c("OH1", "OH3"), "E3", explanations)
 explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
@@ -42,7 +42,7 @@ explanations <- explain(c("PH5", "PH6"), "E5", explanations)
 #contradictions
 explanations <- contradict("PH3", "OH3", explanations)
 explanations <- contradict("PH6", "OH5", explanations)
-IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 plot(IMEC)
 summary(IMEC)
 

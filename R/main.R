@@ -7,7 +7,7 @@ setconnection <- function(m, x1, x2, weight)
     m[rownames(m) == x2, colnames(m) == x1] <- weight
     return(m)
 }
-#'Initialize the Explanatory Network
+#'Initialize the explanatory network
 #'
 #'This function initializes the network in which explanatory relations can be stored later.
 #'
@@ -15,17 +15,17 @@ setconnection <- function(m, x1, x2, weight)
 #'@param theory1 Vector of propositions included in theory 1
 #'@param theory2 Vector of propositions included in theory 2 (only set manually if theory comparison is intended)
 #'
-#'@return An empty edge matrix (all edges 0).
+#'@return An empty edge matrix (all edges 0)
 #'
 #'@examples
-#'#Comparison of Oxygen and Phlogiston Theory of Combustion
-#'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#'#Comparison of oxygen and phlogiston theory of combustion
+#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
 #'## oxygen and phlogiston
-#'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
-#'#oygen explanations
+#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
+#'#oyxgen explanations
 #'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
 #'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
@@ -40,7 +40,7 @@ setconnection <- function(m, x1, x2, weight)
 #'#contradictions
 #'explanations <- contradict("PH3", "OH3", explanations)
 #'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 #'plot(IMEC)
 #'summary(IMEC)
 #'
@@ -67,13 +67,13 @@ initializeNetwork <- function(phenomena, theory1, theory2 = character()) {
 #'@return Returns the explanatory matrix with the edge weights modified according
 #'to the specified explanation
 #'@examples
-#'#Comparison of Oxygen and Phlogiston Theory of Combustion
-#'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#'#Comparison of oxygen and phlogiston theory of combustion
+#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
 #'## oxygen and phlogiston
-#'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
+#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
 #'#oygen explanations
 #'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
@@ -89,7 +89,7 @@ initializeNetwork <- function(phenomena, theory1, theory2 = character()) {
 #'#contradictions
 #'explanations <- contradict("PH3", "OH3", explanations)
 #'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 #'plot(IMEC)
 #'summary(IMEC)
 #'
@@ -115,22 +115,22 @@ explain <- function(Explanation, Explanandum, matrix, weight = 1){
 #'Sets a contradictory relation between a set of propositions and a phenomenon.
 #'If more than one proposition is used the edge weight will be reduced accordingly.
 #'
-#'@param Explanation Vector of Explanations that explain the Explanadum
+#'@param Explanation Vector of explanations that explain the explanadum
 #'@param Explanandum A proposition or phenomenon that is explained
-#'@param matrix Matrix of Explanatory relations that is modified
+#'@param matrix Matrix of explanatory relations that is modified
 #'@param weight Strength of connection (i.e., strength of contradiction)
 #'
-#'#'@return returns the explantory matrix with the edge weights modified according
+#'#'@return returns the explanatory matrix with the edge weights modified according
 #'to the specified contradiction
 #'
 #'@examples
-#'#Comparison of Oxygen and Phlogiston Theory of Combustion
-#'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#'#Comparison of oxygen and phlogiston theory of combustion
+#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
 #'## oxygen and phlogiston
-#'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
+#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
 #'#oygen explanations
 #'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
@@ -146,7 +146,7 @@ explain <- function(Explanation, Explanandum, matrix, weight = 1){
 #'#contradictions
 #'explanations <- contradict("PH3", "OH3", explanations)
 #'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 #'plot(IMEC)
 #'summary(IMEC)
 #'
@@ -166,7 +166,7 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
     return(matrix)
 }
 
-#'Computes the Ising Model of Explanatory Coherence.
+#'Computes the ising model of explanatory coherence.
 #'
 #'Computes IMEC based on previously specified explanatory relations.
 #'
@@ -182,13 +182,13 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'the evidence, and the phenomena
 #'
 #'@examples
-#'#Comparison of Oxygen and Phlogiston Theory of Combustion
-#'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#'#Comparison of oxygen and phlogiston theory of combustion
+#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
 #'## oxygen and phlogiston
-#'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
+#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
 #'#oygen explanations
 #'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
@@ -204,7 +204,7 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'#contradictions
 #'explanations <- contradict("PH3", "OH3", explanations)
 #'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 #'plot(IMEC)
 #'summary(IMEC)
 #'
@@ -235,15 +235,15 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
             coherenceT1 <- c(coherenceT1, cp)
         }
         startP <- length(propositions)+2
-        coherencePhenomena <- numeric()
+        coherencephenomena <- numeric()
         for (i in startP:ncol(res)) {
             cp <- subset(res, res[i] == 1)
             cp <-sum(cp$Probability)
-            coherencePhenomena <- c(coherencePhenomena, cp)
+            coherencephenomena <- c(coherencephenomena, cp)
         }
         if (length(theory2) < 1)   {
-            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, coherencePhenomena,evidence, analogy, matrix)
-            names(results) <- c("ExplanatoryCoherenceT1", "Phenomena", "CredibilityOfPhenomena", "Evidence", "Analogy", "Explanations")
+            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, coherencephenomena,evidence, analogy, matrix)
+            names(results) <- c("ExplanatoryCoherenceT1", "phenomena", "CredibilityOfphenomena", "Evidence", "Analogy", "Explanations")
         } else {
             coherenceT2 <- numeric()
             for (i in (length(theory1)+1):length(propositions)){
@@ -251,8 +251,8 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
                 cp <-sum(cp$Probability)
                 coherenceT2 <- c(coherenceT2, cp)
             }
-            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, coherencePhenomena, evidence,analogy, matrix)
-            names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena","CredibilityOfPhenomena", "Evidence","Analogy", "Explanations")
+            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, coherencephenomena, evidence,analogy, matrix)
+            names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "phenomena","CredibilityOfphenomena", "Evidence","Analogy", "Explanations")
         }
     } else {
         res <- IsingSampler::IsingSampler(10000, matrix, thresholds, beta = 1, response = c(-1,1), method ="CFTP")
@@ -263,16 +263,16 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
             coherenceT1 <- c(coherenceT1, cp)
         }
         startP <- length(propositions)+1
-        coherencePhenomena  <- numeric()
+        coherencephenomena  <- numeric()
         for (i in startP:ncol(res)) {
             cp <- subset(res, res[,i] == 1)
             cp <- nrow(cp)/10000
-            coherencePhenomena <- c(coherencePhenomena, cp)
+            coherencephenomena <- c(coherencephenomena, cp)
         }
 
         if (length(theory2) < 1)   {
-            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, coherencePhenomena, evidence,analogy, matrix)
-            names(results) <- c("ExplanatoryCoherenceT1", "Phenomena","CredibilityOfPhenomena", "Evidence","Analogy", "Explanations")
+            results <- list(list(theory1, as.numeric(coherenceT1)), phenomena, coherencephenomena, evidence,analogy, matrix)
+            names(results) <- c("ExplanatoryCoherenceT1", "phenomena","CredibilityOfphenomena", "Evidence","Analogy", "Explanations")
         } else {
             coherenceT2 <- numeric()
             for (i in (length(theory1)+1):length(propositions)){
@@ -280,8 +280,8 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
                 cp <- nrow(cp)/10000
                 coherenceT2 <- c(coherenceT2, cp)
             }
-            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, coherencePhenomena, evidence,analogy, matrix)
-            names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "Phenomena","CredibilityOfPhenomena", "Evidence","Analogy", "Explanations")
+            results <- list(list(theory1, as.numeric(coherenceT1)), list(theory2, as.numeric(coherenceT2)), phenomena, coherencephenomena, evidence,analogy, matrix)
+            names(results) <- c("ExplanatoryCoherenceT1","ExplanatoryCoherenceT2", "phenomena","CredibilityOfphenomena", "Evidence","Analogy", "Explanations")
         }
     }
 
@@ -289,7 +289,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
     return(results)
 }
 
-#'Plots the Explanatory Relations
+#'Plots the explanatory relations
 #'
 #'Plot the explanatory relations between data and phenomena. A window will open where you
 #'can drag the nodes in the intended position. Then press enter to plot the network.
@@ -298,13 +298,13 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
 #'@param nodesize size of vertices in the plotted network
 #'@param ... other parameters passed on to S3 method.
 #'@examples
-#'#Comparison of Oxygen and Phlogiston Theory of Combustion
-#'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#'#Comparison of oxygen and phlogiston theory of combustion
+#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
 #'## oxygen and phlogiston
-#'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
+#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
 #'#oygen explanations
 #'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
@@ -320,7 +320,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
 #'#contradictions
 #'explanations <- contradict("PH3", "OH3", explanations)
 #'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 #'plot(IMEC)
 #'summary(IMEC)
 #'
@@ -328,7 +328,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
 plot.IMEC <- function(x, nodesize = 10,...) {
     IMEC <- x
     matrix <- IMEC$Explanations
-    phenomena <- IMEC$Phenomena
+    phenomena <- IMEC$phenomena
     theory1 <- IMEC$ExplanatoryCoherenceT1[[1]]
     if (length(IMEC) > 4) {
         theory2 <- IMEC$ExplanatoryCoherenceT2[[1]]
@@ -359,13 +359,13 @@ plot.IMEC <- function(x, nodesize = 10,...) {
 #'@param object IMEC object.
 #'@param ... other paremeters passed on from S3 method.
 #'@examples
-#'#Comparison of Oxygen and Phlogiston Theory of Combustion
-#'Phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'Oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'Phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
+#'#Comparison of oxygen and phlogiston theory of combustion
+#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
+#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
+#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
 #'evidence <- c(rep(1,8))
 #'## oxygen and phlogiston
-#'explanations <- initializeNetwork(Phenomena, Oxygen, Phlogiston)
+#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
 #'#oygen explanations
 #'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
 #'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
@@ -381,7 +381,7 @@ plot.IMEC <- function(x, nodesize = 10,...) {
 #'#contradictions
 #'explanations <- contradict("PH3", "OH3", explanations)
 #'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, Phenomena, Oxygen, Phlogiston)
+#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
 #'plot(IMEC)
 #'summary(IMEC)
 #'
