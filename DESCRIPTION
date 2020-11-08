@@ -1,11 +1,19 @@
 Package: IMEC
 Title: Ising Model of Explanatory Coherence
 Version: 0.2.0
-Authors@R: 
+Authors@R: c(
     person(given = "Maximilian",
            family = "Maier",
            role = c("aut", "cre"),
-           email = "maximilianmaier0401@gmail.com")
+           email = "maximilianmaier0401@gmail.com"),
+    person(given = "Noah",
+           family = "van Dongen",
+           role = c("ths"),
+           email = "test@gmail.com"),
+    person(given = "Denny",
+           family = "Borsboom",
+           role = c("ths"),
+           email = "test@gmail.com"))   
 Description: Compute and plot the Ising Model of Explanatory Coherence.
 License: MIT + file LICENSE
 Encoding: UTF-8
