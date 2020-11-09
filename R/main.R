@@ -1,6 +1,6 @@
 #Package functions IMEC
 
-#helper function fro set edge matrix
+#helper function for set edge matrix
 setconnection <- function(m, x1, x2, weight)
 {
     m[rownames(m) == x1, colnames(m) == x2] <- weight
@@ -18,31 +18,18 @@ setconnection <- function(m, x1, x2, weight)
 #'@return An empty edge matrix (all edges 0)
 #'
 #'@examples
-#'#Comparison of oxygen and phlogiston theory of combustion
-#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
-#'evidence <- c(rep(1,8))
-#'## oxygen and phlogiston
-#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
-#'#oyxgen explanations
-#'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-#'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
-#'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E5", explanations)
-#'explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E7", explanations)
-#'explanations <- explain(c("OH1", "OH6"), "E8", explanations)
-#'#phlogiston explanations
-#'explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- explain(c("PH5", "PH6"), "E5", explanations)
-#'#contradictions
-#'explanations <- contradict("PH3", "OH3", explanations)
-#'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
-#'plot(IMEC)
-#'summary(IMEC)
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'summary(coherence)
+#'plot(coherence)
 #'
 #'@export
 initializeNetwork <- function(phenomena, theory1, theory2 = character()) {
@@ -67,32 +54,18 @@ initializeNetwork <- function(phenomena, theory1, theory2 = character()) {
 #'@return Returns the explanatory matrix with the edge weights modified according
 #'to the specified explanation
 #'@examples
-#'#Comparison of oxygen and phlogiston theory of combustion
-#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
-#'evidence <- c(rep(1,8))
-#'## oxygen and phlogiston
-#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
-#'#oygen explanations
-#'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-#'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
-#'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E5", explanations)
-#'explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E7", explanations)
-#'explanations <- explain(c("OH1", "OH6"), "E8", explanations)
-#'#phlogiston explanations
-#'explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- explain(c("PH5", "PH6"), "E5", explanations)
-#'#contradictions
-#'explanations <- contradict("PH3", "OH3", explanations)
-#'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
-#'plot(IMEC)
-#'summary(IMEC)
-#'
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'summary(coherence)
+#'plot(coherence)
 #'@export
 explain <- function(Explanation, Explanandum, matrix, weight = 1){
     if (length(Explanandum) > 1) {
@@ -124,32 +97,18 @@ explain <- function(Explanation, Explanandum, matrix, weight = 1){
 #'to the specified contradiction
 #'
 #'@examples
-#'#Comparison of oxygen and phlogiston theory of combustion
-#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
-#'evidence <- c(rep(1,8))
-#'## oxygen and phlogiston
-#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
-#'#oygen explanations
-#'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-#'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
-#'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E5", explanations)
-#'explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E7", explanations)
-#'explanations <- explain(c("OH1", "OH6"), "E8", explanations)
-#'#phlogiston explanations
-#'explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- explain(c("PH5", "PH6"), "E5", explanations)
-#'#contradictions
-#'explanations <- contradict("PH3", "OH3", explanations)
-#'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
-#'plot(IMEC)
-#'summary(IMEC)
-#'
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'summary(coherence)
+#'plot(coherence)
 #'@export
 contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
     if (length(Explanandum) > 1) {
@@ -182,32 +141,18 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'the evidence, and the phenomena
 #'
 #'@examples
-#'#Comparison of oxygen and phlogiston theory of combustion
-#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
-#'evidence <- c(rep(1,8))
-#'## oxygen and phlogiston
-#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
-#'#oygen explanations
-#'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-#'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
-#'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E5", explanations)
-#'explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E7", explanations)
-#'explanations <- explain(c("OH1", "OH6"), "E8", explanations)
-#'#phlogiston explanations
-#'explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- explain(c("PH5", "PH6"), "E5", explanations)
-#'#contradictions
-#'explanations <- contradict("PH3", "OH3", explanations)
-#'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
-#'plot(IMEC)
-#'summary(IMEC)
-#'
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'summary(coherence)
+#'plot(coherence)
 #'@export
 computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = character() ,analytic = T, analogy = numeric())
 {
@@ -298,32 +243,18 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
 #'@param nodesize size of vertices in the plotted network
 #'@param ... other parameters passed on to S3 method.
 #'@examples
-#'#Comparison of oxygen and phlogiston theory of combustion
-#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
-#'evidence <- c(rep(1,8))
-#'## oxygen and phlogiston
-#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
-#'#oygen explanations
-#'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-#'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
-#'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E5", explanations)
-#'explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E7", explanations)
-#'explanations <- explain(c("OH1", "OH6"), "E8", explanations)
-#'#phlogiston explanations
-#'explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- explain(c("PH5", "PH6"), "E5", explanations)
-#'#contradictions
-#'explanations <- contradict("PH3", "OH3", explanations)
-#'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
-#'plot(IMEC)
-#'summary(IMEC)
-#'
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'summary(coherence)
+#'plot(coherence)
 #'@export
 plot.IMEC <- function(x, nodesize = 10,...) {
     IMEC <- x
@@ -359,32 +290,18 @@ plot.IMEC <- function(x, nodesize = 10,...) {
 #'@param object IMEC object.
 #'@param ... other paremeters passed on from S3 method.
 #'@examples
-#'#Comparison of oxygen and phlogiston theory of combustion
-#'phenomena <- c("E1", "E2", "E3", "E4", "E5", "E6", "E7", "E8")
-#'oxygen <- c("OH1", "OH2", "OH3", "OH4", "OH5", "OH6")
-#'phlogiston <- c("PH1", "PH2", "PH3", "PH4", "PH5", "PH6")
-#'evidence <- c(rep(1,8))
-#'## oxygen and phlogiston
-#'explanations <- initializeNetwork(phenomena, oxygen, phlogiston)
-#'#oygen explanations
-#'explanations <- explain(c("OH1", "OH2", "OH3"), "E1", explanations)
-#'explanations <- explain(c("OH1", "OH3"), "E3", explanations)
-#'explanations <- explain(c("OH1", "OH3", "OH4"), "E4", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E5", explanations)
-#'explanations <- explain(c("OH1", "OH4", "OH5"), "E6", explanations)
-#'explanations <- explain(c("OH1", "OH5"), "E7", explanations)
-#'explanations <- explain(c("OH1", "OH6"), "E8", explanations)
-#'#phlogiston explanations
-#'explanations <- explain(c("PH1", "PH2", "PH3"), "E1", explanations)
-#'explanations <- explain(c("PH1", "PH3", "PH4"), "E2", explanations)
-#'explanations <- explain(c("PH5", "PH6"), "E5", explanations)
-#'#contradictions
-#'explanations <- contradict("PH3", "OH3", explanations)
-#'explanations <- contradict("PH6", "OH5", explanations)
-#'IMEC <- computeIMEC(explanations,evidence, phenomena, oxygen, phlogiston)
-#'plot(IMEC)
-#'summary(IMEC)
-#'
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'summary(coherence)
+#'plot(coherence)
 #'@export
 summary.IMEC <- function(object,...) {
     IMEC <- object
