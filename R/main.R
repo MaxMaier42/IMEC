@@ -269,7 +269,7 @@ plot.IMEC <- function(x, nodesize = 10,...) {
     }
     propositions  <- c(theory1, theory2)
     g  <- igraph::graph_from_adjacency_matrix(matrix, mode = "undirected", weighted = TRUE)
-    colorsphenomena <- rep("blue", length(phenomena))
+    colorsphenomena <- rep("cadetblue1", length(phenomena))
     for (i in 1:length(phenomena)) {
         if(evidence[i] < 0) {
             colorsphenomena[i] <- c("red")
