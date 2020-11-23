@@ -18,7 +18,7 @@ Plot the explanatory relations between data and phenomena. A window will open wh
 can drag the nodes in the intended position. Then press enter to plot the network.
 }
 \examples{
-# simple example comparing two theories one of them with more explanatory breadth##
+# simple example comparing two hypotheses one of them with more explanatory breadth##
 T1 <- c("H1", "H2")
 Phenomena <- c("E1", "E2")
 Thresholds <- c(2,2)

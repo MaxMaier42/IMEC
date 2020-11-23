@@ -9,13 +9,13 @@
 \arguments{
 \item{object}{IMEC object.}
 
-\item{...}{other paremeters passed on from S3 method.}
+\item{...}{other parameters passed on from S3 method.}
 }
 \description{
 Summary of an IMEC object.
 }
 \examples{
-# simple example comparing two theories one of them with more explanatory breadth##
+# simple example comparing two hypotheses one of them with more explanatory breadth##
 T1 <- c("H1", "H2")
 Phenomena <- c("E1", "E2")
 Thresholds <- c(2,2)

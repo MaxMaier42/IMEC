@@ -125,7 +125,7 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
     return(matrix)
 }
 
-#'Computes the ising model of explanatory coherence.
+#'Computes the Ising model of explanatory coherence.
 #'
 #'Computes IMEC based on previously specified explanatory relations.
 #'
@@ -135,7 +135,7 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'@param theory1 vector of propositions in theory1.
 #'@param theory2 vector of propositions in theory2.
 #'@param analytic whether the result should be calculated analytically or (for large networks) estimated using
-#'Metropolis-Hastings algorithm enhanced with Coupling from the past (Murray, 2007).
+#'Metropolis-Hastings algorithm enhanced with Coupling from the past.
 #'@param analogy this argument is only for purposes of adding analogy in the future and should currently not be used.
 #'@return returns an IMEC object which contains the explanatory coherence of the propositions, the explanatory relations,
 #'the evidence, and the phenomena
@@ -154,7 +154,7 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'summary(coherence)
 #'plot(coherence)
 #'@export
-computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = character() ,analytic = T, analogy = numeric())
+computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = character() ,analytic = TRUE, analogy = numeric())
 {
     propositions <- c(theory1, theory2)
     if (length(phenomena) != length(evidence)) {
@@ -171,7 +171,7 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
     else {
         stop("Analaogy must be length zero or length of theory")
     }
-    if (analytic == T) {
+    if (analytic == TRUE) {
         res <- IsingSampler::IsingLikelihood(matrix,thresholds, beta = 1, response = c(-1,1))
         coherenceT1 <- numeric()
         for (i in 1:length(theory1)) {
@@ -295,7 +295,7 @@ plot.IMEC <- function(x, nodesize = 10,...) {
 
 #'Summary of an IMEC object.
 #'@param object IMEC object.
-#'@param ... other paremeters passed on from S3 method.
+#'@param ... other parameters passed on from S3 method.
 #'@examples
 #'# simple example comparing two hypotheses one of them with more explanatory breadth##
 #'T1 <- c("H1", "H2")

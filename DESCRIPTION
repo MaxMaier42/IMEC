@@ -14,7 +14,12 @@ Authors@R: c(
            family = "Borsboom",
            role = c("ths"),
            email = "test@gmail.com"))   
-Description: Compute and plot the Ising Model of Explanatory Coherence.
+Description: 
+    Theories are one of the most important tools of science. Although psychologists discussed problems of theory in their discipline for a long time, weak theories are still widespread in most subfields. 
+    One possible reason for this is that psychologists lack the tools to systematically assess the quality of their theories. 
+    Previously a computational model for formal theory evaluation based on the concept of explanatory coherence was developed (Thagard, 1989, <doi:10.1017/S0140525X00057046s>). 
+    However, there are possible improvements to this model and it is not available in software that psychologists typically use. 
+    Therefore, a new implementation of explanatory coherence based on the Ising model is available in this R-package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

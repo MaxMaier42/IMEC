@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{computeIMEC}
 \alias{computeIMEC}
-\title{Computes the ising model of explanatory coherence.}
+\title{Computes the Ising model of explanatory coherence.}
 \usage{
 computeIMEC(
   matrix,
@@ -10,7 +10,7 @@ computeIMEC(
   phenomena,
   theory1,
   theory2 = character(),
-  analytic = T,
+  analytic = TRUE,
   analogy = numeric()
 )
 }
@@ -26,7 +26,7 @@ computeIMEC(
 \item{theory2}{vector of propositions in theory2.}
 
 \item{analytic}{whether the result should be calculated analytically or (for large networks) estimated using
-Metropolis-Hastings algorithm enhanced with Coupling from the past (Murray, 2007).}
+Metropolis-Hastings algorithm enhanced with Coupling from the past.}
 
 \item{analogy}{this argument is only for purposes of adding analogy in the future and should currently not be used.}
 }
@@ -38,7 +38,7 @@ the evidence, and the phenomena
 Computes IMEC based on previously specified explanatory relations.
 }
 \examples{
-# simple example comparing two theories one of them with more explanatory breadth##
+# simple example comparing two hypotheses one of them with more explanatory breadth##
 T1 <- c("H1", "H2")
 Phenomena <- c("E1", "E2")
 Thresholds <- c(2,2)

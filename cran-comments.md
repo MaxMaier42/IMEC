@@ -1,3 +1,5 @@
+This is a resubmission. I replaced T with true and added a more detailed description. 
+
 ## Test environments
 local windows 10: R 3.6.3, R 4.0.2, and R 4.1 (development version)
 
