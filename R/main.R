@@ -260,6 +260,7 @@ plot.IMEC <- function(x, nodesize = 10,...) {
     IMEC <- x
     matrix <- IMEC$Explanations
     phenomena <- IMEC$phenomena
+    evidence <- IMEC$Evidence
     theory1 <- IMEC$ExplanatoryCoherenceT1[[1]]
     if (length(IMEC) > 4) {
         theory2 <- IMEC$ExplanatoryCoherenceT2[[1]]
@@ -268,6 +269,12 @@ plot.IMEC <- function(x, nodesize = 10,...) {
     }
     propositions  <- c(theory1, theory2)
     g  <- igraph::graph_from_adjacency_matrix(matrix, mode = "undirected", weighted = TRUE)
+    colorsphenomena <- rep("blue", length(phenomena)))
+    for (i in 1:length(phenomena)) {
+        if(evidence[i] < 0) {
+            colorsphenomena[i] <- c("red")
+        }
+    }
     colors <- c(rep("yellow", length(theory1)), rep("green", length(theory2)), rep("orangered", length(phenomena)))
     shapes <- c(rep("circle", length(theory1)), rep("circle", length(theory2)), rep("square", length(phenomena)))
     yp <- c(rep(1, length(theory1)), rep(10, length(theory2)), rep(5, length(phenomena)))
