@@ -275,7 +275,7 @@ plot.IMEC <- function(x, nodesize = 10,...) {
             colorsphenomena[i] <- c("red")
         }
     }
-    colors <- c(rep("yellow", length(theory1)), rep("green", length(theory2)), colorsphenomena))
+    colors <- c(rep("yellow", length(theory1)), rep("green", length(theory2)), colorsphenomena)
     shapes <- c(rep("circle", length(theory1)), rep("circle", length(theory2)), rep("square", length(phenomena)))
     yp <- c(rep(1, length(theory1)), rep(10, length(theory2)), rep(5, length(phenomena)))
     if (length(theory2) > 0) {
