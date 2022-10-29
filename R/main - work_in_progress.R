@@ -154,8 +154,27 @@ contradict <- function(Explanation, Explanandum,  matrix, weight = 4){
 #'summary(coherence)
 #'plot(coherence)
 #'@export
-computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = character() ,analytic = TRUE, analogy = numeric())
-{
+computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = character() ,analytic = TRUE, analogy = numeric(), robustbootstrap = FALSE)
+    # simple example comparing two hypotheses one of them with more explanatory breadth##
+    T1 <- c("H1", "H2")
+    Phenomena <- c("E1", "E2")
+    Thresholds <- c(2,2)
+    explanations <- initializeNetwork(Phenomena, T1)
+    explanations <- explain("H1", "E1", explanations)
+    explanations <- explain("H1", "E2", explanations)
+    explanations <- explain("H2", "E2", explanations)
+    explanations <- contradict("H1", "H2", explanations)
+
+    matrix <- explanations
+    evidence <- Thresholds
+    phenomena <- Phenomena
+    theory1 <- T1
+    theory2 <- character()
+    analytic = TRUE
+    analogy = numeric()
+    robustbootstrap = TRUE
+
+    {
     propositions <- c(theory1, theory2)
     if (length(phenomena) != length(evidence)) {
         stop("Every phenomenon needs some evidence! Make sure the legth of evidence and phenomena is the same.")
@@ -233,6 +252,113 @@ computeIMEC <- function(matrix, evidence, phenomena, theory1, theory2 = characte
     class(results) <- "IMEC"
     return(results)
 }
+
+#'Plots the explanatory relations
+#'
+#'Plot the explanatory relations between data and phenomena. A window will open where you
+#'can drag the nodes in the intended position. Then press enter to plot the network.
+#'
+#'@param x Object of the class IMEC as returned by computeIMEC
+#'@param iter number of iterations
+#'@param range range in which the values should be varied for sensitivity analysis
+#'@param analytic should IMEC be calculated analytically or via simulation
+#'@param plot should a plot be created?
+#'@examples
+#'# simple example comparing two hypotheses one of them with more explanatory breadth##
+#'T1 <- c("H1", "H2")
+#'Phenomena <- c("E1", "E2")
+#'Thresholds <- c(2,2)
+#'explanations <- initializeNetwork(Phenomena, T1)
+#'explanations <- explain("H1", "E1", explanations)
+#'explanations <- explain("H1", "E2", explanations)
+#'explanations <- explain("H2", "E2", explanations)
+#'explanations <- contradict("H1", "H2", explanations)
+#'coherence <- computeIMEC(explanations, Thresholds, Phenomena, T1)
+#'edgeBootstrap(coherence)
+#'summary(coherence)
+#'plot(coherence)
+#'@export
+edgeBootstrap <- function(IMEC, iter = 500, range = 10, analytic = T, plot = T){
+        IMEC <- IMEC
+        matrix <- IMEC$Explanations
+        phenomena <- IMEC$phenomena
+        evidence <- IMEC$Evidence
+        theory1 <- IMEC$ExplanatoryCoherenceT1[[1]]
+        if (length(IMEC) > 4) {
+            theory2 <- IMEC$ExplanatoryCoherenceT2[[1]]
+        } else {
+            theory2 <- character()
+        }
+        propositions  <- c(theory1, theory2)
+        results <- list(length = iter)
+        for(i in 1:iter){
+            matrixboot <- matrix
+            for(j in 1:nrow(matrix)){
+                for(k in 1:ncol(matrix))
+                    if(rbinom(1, 1, 0.5) == 1)
+                        matrixboot[j, k] <- matrix[j,k]*runif(1, 1, range)
+                else{
+                    matrixboot[j, k] <- matrix[j,k]/runif(1, 1, range)
+                }
+            }
+            matrixboot[upper.tri(matrixboot)] <- t(matrixboot)[upper.tri(matrixboot)]
+            results[[i]] <- computeIMEC(matrixboot, evidence, phenomena, theory1, theory2, analytic)
+        }
+        T1 <- length(theory1)
+        T2 <- length(theory2)
+        P  <- length(phenomena)
+        res <- data.frame(matrix(nrow = iter, ncol = T1 + T2 + P))
+
+        if(length(T2) == 0){
+
+            names <- c(results[[1]]$ExplanatoryCoherenceT1[[1]], results[[1]]$phenomena)
+            colnames(res) <- names
+
+            for(i in 1:500){
+                res[i, 1:T1] <- results[[i]]$ExplanatoryCoherenceT1[[2]]
+                res[i, (T1+1):(T1+P)] <- results[[i]]$CredibilityOfphenomena
+            }
+            if(length(theory1) > 1){
+                res$Theory1 <- rowMeans(res[, 1:T1])
+            }
+
+        } else {
+
+            names <- c(results[[1]]$ExplanatoryCoherenceT1[[1]], results[[1]]$ExplanatoryCoherenceT2[[1]], results[[1]]$phenomena)
+            colnames(res) <- names
+
+            for(i in 1:500){
+                res[i, 1:T1] <- results[[i]]$ExplanatoryCoherenceT1[[2]]
+                res[i, (T1+1):(T1+T2)] <- results[[i]]$ExplanatoryCoherenceT2[[2]]
+                res[i, (T1+T2+1):(T1+T2+P)] <- results[[i]]$CredibilityOfphenomena
+            }
+            if(length(theory1) > 1){
+                res$Theory1 <- rowMeans(res[, 1:T1])
+            }
+            if(length(theory2) > 1){
+                res$Theory2 <- rowMeans(res[, (T1+1):(T1+T2)])
+            }
+        }
+
+
+        if(plot){
+            if(length(theory1) > 1){
+                par(ask=T)
+                hist(res$Theory1, main = paste0("Sensitivity Bootstrap for Theory 1 with Scaling Range ", range), xlab = "Coherence of Theory 1", xlim = c(0,1))
+            }
+            if(length(theory2) > 1){
+                par(ask=T)
+                hist(res$Theory2, main = paste0("Sensitivity Bootstrap for Theory 2 with Scaling Range ", range), xlab = "Coherence of Theory 2", xlim = c(0,1))
+            }
+            for(i in 1:length(names)){
+                par(ask=T)
+                hist(res[,i], main = paste0("Sensitivity Bootstrap for ", names[i], " with Scaling Range ", range), xlab = paste0("Coherence of ", names[i]), xlim = c(0,1))
+            }
+        }
+        return(res)
+    }
+
+
 
 #'Plots the explanatory relations
 #'
